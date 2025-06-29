@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
+
 const adminCredentials = {
+    
     email: process.env.ADMIN_EMAIL,
     password: process.env.ADMIN_PASSWORD
 };
@@ -13,6 +15,7 @@ const adminCredentials = {
 const adminLogin = async (req, res) => {
     const { username, password } = req.body;
 
+    
     if (username === adminCredentials.email && password === adminCredentials.password) {
         const token = jwt.sign({ email: adminCredentials.email, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '12h' });
         return res.status(200).json({ status: 'ok', user: token });
@@ -37,6 +40,7 @@ async function getAllFlights(req, res) {
 }
 
 async function addFlight(req, res) {
+    
     const { flightNo, to, from, category, totalSeats, date, departureTime, arrivalTime, airline } = req.body;
     const date_ = new Date(date);
     try {
@@ -60,6 +64,7 @@ async function addFlight(req, res) {
 }
 
 async function editFlight(req, res) {
+    
     const { id } = req.params;
     const { flightNo, to, from, category, totalSeats, date, departureTime, arrivalTime, airline } = req.body;
 
